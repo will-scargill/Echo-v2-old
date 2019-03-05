@@ -27,8 +27,15 @@ namespace GuiTest1
             pageStartup = this;
             DBM.SQLInitialise();
             populateServers();
+            List<string> settings = CFM.ReadSettings();
+            
 
 
+            if (Convert.ToBoolean(settings[0]) == true)
+            {
+                this.cbRememberUser.IsChecked = true;
+                this.tbStartupUsername.Text = settings[1];
+            }
         }
 
         private void bStartupSettings_Click(object sender, RoutedEventArgs e)
@@ -55,7 +62,14 @@ namespace GuiTest1
 
         private void cbRememberUser_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (this.cbRememberUser.IsChecked == false)
+            {
+                CFM.UpdateSetting("saveUsername", "false");
+            }
+            else if (this.cbRememberUser.IsChecked == true)
+            {
+                CFM.UpdateSetting("saveUsername", "true");
+            }
         }
     }
 }
