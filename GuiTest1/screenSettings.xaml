@@ -1,0 +1,25 @@
+﻿<Page x:Class="GuiTest1.screenSettings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GuiTest1"
+      mc:Ignorable="d" 
+      d:DesignHeight="320" d:DesignWidth="517"
+      Title="screenSettings">
+
+    <Grid>
+        <ListBox x:Name="lbSettingsServers" HorizontalAlignment="Left" Height="269" Margin="10,10,0,0" VerticalAlignment="Top" Width="229" SelectionChanged="lbSettingsServers_SelectionChanged"/>
+        <TextBox x:Name="tbSettingsName" HorizontalAlignment="Left" Height="23" Margin="248,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
+        <TextBox x:Name="tbSettingsIP" HorizontalAlignment="Left" Height="23" Margin="248,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
+        <TextBox x:Name="tbSettingsPort" HorizontalAlignment="Left" Height="23" Margin="248,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
+        <Button x:Name="bSettingsNewServ" Content="New" HorizontalAlignment="Left" Height="29" Margin="248,200,0,0" VerticalAlignment="Top" Width="120" Click="bSettingsNewServ_Click"/>
+        <Button x:Name="bSettingsSaveServ" Content="Save" HorizontalAlignment="Left" Height="29" Margin="376,200,0,0" VerticalAlignment="Top" Width="120" Click="bSettingsSaveServ_Click"/>
+        <Button x:Name="bSettingsDelServ" Content="Delete" HorizontalAlignment="Left" Height="29" Margin="248,250,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="bSettingsExit" Content="Exit" HorizontalAlignment="Left" Height="29" Margin="376,250,0,0" VerticalAlignment="Top" Width="120" Click="button_Copy2_Click"/>
+        <Label x:Name="lSettingsServName" Content="Server Name" HorizontalAlignment="Left" Margin="248,24,0,0" VerticalAlignment="Top" Width="149"/>
+        <Label x:Name="lSettingsServIP" Content="Server IP" HorizontalAlignment="Left" Margin="248,74,0,0" VerticalAlignment="Top" Width="149"/>
+        <Label x:Name="lSettingsServPort" Content="Server Port" HorizontalAlignment="Left" Margin="248,123,0,0" VerticalAlignment="Top" Width="149"/>
+
+    </Grid>
+</Page>
