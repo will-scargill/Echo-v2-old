@@ -72,9 +72,12 @@ namespace GuiTest1
             }
         }
 
-        private void lbStartupServers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void bStartupConn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (this.cbRememberUser.IsChecked == true)
+            {
+                CFM.UpdateSetting("username", this.tbStartupUsername.Text);
+            }
         }
     }
 }
