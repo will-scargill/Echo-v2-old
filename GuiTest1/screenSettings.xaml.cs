@@ -50,11 +50,6 @@ namespace GuiTest1
             }
         }
 
-        private void fetchServerDetails()
-        {
-
-        }
-
         private void lbSettingsServers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBoxItem lbi = ((sender as ListBox).SelectedItem as ListBoxItem);
@@ -62,7 +57,7 @@ namespace GuiTest1
             else
             {
                 string serverName = lbi.Content.ToString();
-                List<List<object>> data = DBM.SQLRaw("SELECT * FROM servers WHERE name = '" + serverName + "'", "servers");
+                List<List<string>> data = DBM.SQLRaw("SELECT * FROM servers WHERE name = '" + serverName + "'", "servers");
                 this.tbSettingsName.Text = data[0][1].ToString();
                 this.tbSettingsIP.Text = data[0][2].ToString();
                 this.tbSettingsPort.Text = data[0][3].ToString();
@@ -72,15 +67,20 @@ namespace GuiTest1
         private void bSettingsSaveServ_Click(object sender, RoutedEventArgs e)
         {
             ListBoxItem lbi = this.lbSettingsServers.SelectedItem as ListBoxItem;
-            string serverName = lbi.Content.ToString();
-            string newName = this.tbSettingsName.Text;
-            string newIP = this.tbSettingsIP.Text;
-            string newPort = this.tbSettingsPort.Text;
+            if (lbi == null)
+            {
+                MessageBox.Show("Error - Please select a server");
+            }
+            else
+            {
+                string serverName = lbi.Content.ToString();
+                string newName = this.tbSettingsName.Text;
+                string newIP = this.tbSettingsIP.Text;
+                string newPort = this.tbSettingsPort.Text;
 
-            List<List<object>> data = DBM.SQLRaw("UPDATE servers SET name='"+newName+"', ip='"+newIP+"', port="+newPort+" WHERE name='"+serverName+"'", "servers");
-            
-            populateServers();
-
+                List<List<string>> data = DBM.SQLRaw("UPDATE servers SET name='" + newName + "', ip='" + newIP + "', port=" + newPort + " WHERE name='" + serverName + "'", "servers");
+                populateServers();
+            }
         }
 
         private void bSettingsNewServ_Click(object sender, RoutedEventArgs e)
@@ -88,12 +88,30 @@ namespace GuiTest1
             string newName = this.tbSettingsName.Text;
             string newIP = this.tbSettingsIP.Text;
             string newPort = this.tbSettingsPort.Text;
+            bool check = true;
+            List<List<string>> data = DBM.SQLGetTableData("servers");
+            foreach (List<string> row in data)
+            {
+                if (row[1] == newName)
+                {
+                    check = false;
+                }
+            }
+            if (check == true)
+            {
+                List<string> newServer = new List<string> { newName, newIP, newPort };
 
-            List<string> data = new List<string> { newName, newIP, newPort };
+                DBM.SQLWriteToTable(newServer, "servers");
 
-            DBM.SQLWriteToTable(data, "servers");
+                populateServers();
+            }
+            else
+            {
+                MessageBox.Show("Error - Cannot use duplicate server name");
+            }
+            
 
-            populateServers();
+            
         }
     }
 }

@@ -71,6 +71,11 @@ namespace GuiTest1
                 CFM.UpdateSetting("saveUsername", "true");
             }
         }
+
+        private void lbStartupServers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 
