@@ -48,6 +48,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Socket, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Socket.2.1.0\lib\Socket.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -85,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="CFM.cs" />
     <Compile Include="DBM.cs" />
+    <Compile Include="NM.cs" />
     <Compile Include="screenSettings.xaml.cs">
       <DependentUpon>screenSettings.xaml</DependentUpon>
     </Compile>

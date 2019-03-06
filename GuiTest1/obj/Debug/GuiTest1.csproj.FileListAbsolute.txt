@@ -82,3 +82,6 @@ C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.csp
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.csproj.CopyComplete
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.exe
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.pdb
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.dll
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.pdb
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.xml

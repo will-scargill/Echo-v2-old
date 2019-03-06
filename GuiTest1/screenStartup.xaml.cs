@@ -76,6 +76,13 @@ namespace GuiTest1
         {
 
         }
+
+        private void bStartupConn_Click(object sender, RoutedEventArgs e)
+        {
+            NM.Connect("127.0.0.1", 15000);
+            NM.SendMessage("Hi there");
+            NM.DC();
+        }
     }
 }
 
