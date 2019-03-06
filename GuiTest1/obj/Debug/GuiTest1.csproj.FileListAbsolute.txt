@@ -85,3 +85,8 @@ C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.pdb
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.dll
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.pdb
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.xml
+C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\bin\Debug\Socket.dll
+C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\bin\Debug\Socket.pdb
+C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\bin\Debug\Socket.xml
+C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\obj\Debug\screenMain.g.cs
+C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\obj\Debug\screenMain.baml

@@ -80,8 +80,14 @@ namespace GuiTest1
         private void bStartupConn_Click(object sender, RoutedEventArgs e)
         {
             NM.Connect("127.0.0.1", 15000);
+            NM.RecieveMessage();
+            MainWindow.main.frame.Source = new Uri("screenMain.xaml", UriKind.Relative);
+
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
             NM.SendMessage("Hi there");
-            NM.DC();
         }
     }
 }
