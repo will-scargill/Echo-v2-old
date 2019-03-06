@@ -47,17 +47,17 @@ namespace GuiTest1
             return data;
         }
 
-        public static List<List<object>> SQLRaw(string rawCom, string tableName)
+        public static List<List<string>> SQLRaw(string rawCom, string tableName)
         {
             string sql = rawCom; /// Setup sql command
             command = new SQLiteCommand(sql, dbConn); /// assign command to var
             reader = command.ExecuteReader(); /// Setup reader
-            List<List<object>> data = new List<List<object>>(); /// Create list of string lists
+            List<List<string>> data = new List<List<string>>(); /// Create list of string lists
             switch (tableName) /// Depending on table name
             {
                 case "servers":
                     while (reader.Read())
-                        data.Add(new List<object> { reader["id"].ToString(), reader["name"].ToString(), reader["ip"].ToString(), reader["port"].ToString() });
+                        data.Add(new List<string> { reader["id"].ToString(), reader["name"].ToString(), reader["ip"].ToString(), reader["port"].ToString() });
                     break;
             }       
             reader.Close();
