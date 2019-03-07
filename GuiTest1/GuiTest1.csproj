@@ -89,6 +89,9 @@
     <Compile Include="CFM.cs" />
     <Compile Include="DBM.cs" />
     <Compile Include="NM.cs" />
+    <Compile Include="screenMain.xaml.cs">
+      <DependentUpon>screenMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="screenSettings.xaml.cs">
       <DependentUpon>screenSettings.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="screenMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="screenSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
