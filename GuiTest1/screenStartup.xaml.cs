@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace GuiTest1
 {
@@ -21,6 +22,8 @@ namespace GuiTest1
     public partial class screenStartup : Page
     {
         public static screenStartup pageStartup;
+        
+
         public screenStartup()
         {
             InitializeComponent();
@@ -92,17 +95,25 @@ namespace GuiTest1
                 string servIP = data[0][2];
                 int servPort = Convert.ToInt16(data[0][3]);
                 bool connected = NM.Connect(servIP, servPort);
-                NM.RecieveMessage();
+                
                 if (connected == true)
                 {
-                    MainWindow.main.frame.Source = new Uri("screenMain.xaml", UriKind.Relative);
+                    NM.RecieveMessage();
+
+                    List<string> connRequest = new List<string> { this.tbStartupUsername.Text, this.tbStartupPassword.Text };
+
+                    Dictionary<string, object> message = new Dictionary<string, object>();
+
+                    message.Add("username", "");
+                    message.Add("channel", "");
+                    message.Add("content", connRequest);
+                    message.Add("messagetype", "connRequest");
+
+                    string jsonMessage = JsonConvert.SerializeObject(message);
+
+                    NM.SendMessage(jsonMessage);
                 }
             }
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            NM.SendMessage("Hi there");
         }
     }
 }

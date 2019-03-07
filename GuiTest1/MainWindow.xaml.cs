@@ -27,5 +27,6 @@ namespace GuiTest1
             main = this;
             frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);            
         }
+
     }
 }

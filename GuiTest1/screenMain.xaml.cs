@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace GuiTest1
 {
@@ -21,6 +22,9 @@ namespace GuiTest1
     public partial class screenMain : Page
     {
         public static screenMain pageMain;
+        public static string username;
+        public static string channel;
+
         public screenMain()
         {
             InitializeComponent();
@@ -30,26 +34,47 @@ namespace GuiTest1
             MainWindow.main.frame.Height = 570;
             MainWindow.main.frame.Width = 992;
 
-            KeyBinding OpenCmdKeyBinding = new KeyBinding(
-                btnMainSendMsg_KeyBind(),
-                Key.Enter,
-                );
+            List<string> channels = JsonConvert.DeserializeObject<List<string>>((NM.serverInfo["channels"]).ToString());
 
-            KeyBinding SendMsgOnEnter = new KeyBinding();
+            foreach (string ch in channels)
+            {
+                this.lbMainChannels.Items.Add(ch);
+            }
 
-
-            this.InputBindings.Add(OpenCmdKeyBinding);
         }
 
         private void btnMainSendMsg_Click(object sender, RoutedEventArgs e)
         {
-            NM.SendMessage(this.tbMainMessageEntry.Text);
+            Dictionary<string, object> message = new Dictionary<string, object>();
+            message.Add("username", "Quantum");
+            message.Add("channel", "Channel 1");
+            message.Add("content", this.tbMainMessageEntry.Text);
+            message.Add("messagetype", "inboundMessage");
+
+            string jsonMessage = JsonConvert.SerializeObject(message);
+
+            
+
+            NM.SendMessage(jsonMessage);
             this.tbMainMessageEntry.Text = "";
         }
-        private void btnMainSendMsg_KeyBind()
+
+
+        private void Grid_KeyUp(object sender, KeyEventArgs e)
         {
-            NM.SendMessage(this.tbMainMessageEntry.Text);
-            this.tbMainMessageEntry.Text = "";
+            if (e.Key == Key.Return)
+            {
+                Dictionary<string, object> message = new Dictionary<string, object>();
+                message.Add("username", "Quantum");
+                message.Add("channel", "Channel 1");
+                message.Add("content", this.tbMainMessageEntry.Text);
+                message.Add("messagetype", "inboundMessage");
+
+                string jsonMessage = JsonConvert.SerializeObject(message);
+
+                NM.SendMessage(jsonMessage);
+                this.tbMainMessageEntry.Text = "";
+            }
         }
     }
 }

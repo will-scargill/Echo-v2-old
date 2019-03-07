@@ -12,7 +12,7 @@
         <KeyBinding Command="{Binding btnMainSendMsg_Click}" Key="Enter"/>
     </Page.InputBindings>
 
-    <Grid>
+    <Grid KeyUp="Grid_KeyUp">
         <ListBox x:Name="lbMainMessages" HorizontalAlignment="Left" Height="500" Margin="10,10,0,0" VerticalAlignment="Top" Width="670"/>
         <TextBox x:Name="tbMainMessageEntry" HorizontalAlignment="Left" Height="29" Margin="10,515,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="542"/>
         <ListBox x:Name="lbMainChannels" HorizontalAlignment="Left" Height="230" Margin="692,46,0,0" VerticalAlignment="Top" Width="290"/>

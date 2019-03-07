@@ -17,6 +17,8 @@ namespace GuiTest1
         private static Socket sender;
         private static bool recieving;
 
+        public static Dictionary<string, object> serverInfo = new Dictionary<string, object>();
+
         public static bool Connect(string ip, int port)
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
@@ -41,7 +43,7 @@ namespace GuiTest1
 
         public static void SendMessage(string message)
         {
-            byte[] msg = Encoding.ASCII.GetBytes(message);
+            byte[] msg = Encoding.UTF8.GetBytes(message);
 
             int bytesSent = sender.Send(msg);
         }
@@ -54,8 +56,25 @@ namespace GuiTest1
             while (recieving == true)
             {
                 int bytesRec = sender.Receive(bytes);
-                screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() => { screenMain.pageMain.lbMainMessages.Items.Add(Encoding.ASCII.GetString(bytes, 0, bytesRec)); });
-                //screenMain.pageMain.lbMainMessages.Items.Add(Encoding.ASCII.GetString(bytes, 0, bytesRec));
+                string jsonData = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+                Dictionary<string, object> message = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
+                //MessageBox.Show((string)message["messagetype"]);
+                switch (message["messagetype"])
+                {
+                    case "outboundMessage":
+                        screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() => { screenMain.pageMain.lbMainMessages.Items.Add(message["content"]); });
+                        break;
+                    case "connReqAccepted":
+                        serverInfo.Add("channels", message["content"]);
+                        MainWindow.main.frame.Dispatcher.Invoke(() => { MainWindow.main.frame.Source = new Uri("screenMain.xaml", UriKind.Relative); });
+                        break;
+                    case "connReqDenied":
+                        NM.DC();
+                        break;
+
+                }
+ 
             }
         }
 
