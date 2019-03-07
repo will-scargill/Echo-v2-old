@@ -15,7 +15,7 @@
         <TextBox x:Name="tbSettingsPort" HorizontalAlignment="Left" Height="23" Margin="248,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
         <Button x:Name="bSettingsNewServ" Content="New" HorizontalAlignment="Left" Height="29" Margin="248,200,0,0" VerticalAlignment="Top" Width="120" Click="bSettingsNewServ_Click"/>
         <Button x:Name="bSettingsSaveServ" Content="Save" HorizontalAlignment="Left" Height="29" Margin="376,200,0,0" VerticalAlignment="Top" Width="120" Click="bSettingsSaveServ_Click"/>
-        <Button x:Name="bSettingsDelServ" Content="Delete" HorizontalAlignment="Left" Height="29" Margin="248,250,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="bSettingsDelServ" Content="Delete" HorizontalAlignment="Left" Height="29" Margin="248,250,0,0" VerticalAlignment="Top" Width="120" Click="bSettingsDelServ_Click"/>
         <Button x:Name="bSettingsExit" Content="Exit" HorizontalAlignment="Left" Height="29" Margin="376,250,0,0" VerticalAlignment="Top" Width="120" Click="button_Copy2_Click"/>
         <Label x:Name="lSettingsServName" Content="Server Name" HorizontalAlignment="Left" Margin="248,24,0,0" VerticalAlignment="Top" Width="149"/>
         <Label x:Name="lSettingsServIP" Content="Server IP" HorizontalAlignment="Left" Margin="248,74,0,0" VerticalAlignment="Top" Width="149"/>

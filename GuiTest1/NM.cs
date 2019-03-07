@@ -8,6 +8,7 @@ using System.Windows;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace GuiTest1
 {
@@ -16,17 +17,25 @@ namespace GuiTest1
         private static Socket sender;
         private static bool recieving;
 
-        public static void Connect(string ip, int port)
+        public static bool Connect(string ip, int port)
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, 16000);
+            IPAddress ipAddress = IPAddress.Parse(ip);
+            IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
             sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            sender.Connect(remoteEP);
-
-            recieving = true;
+            try
+            {
+                sender.Connect(remoteEP);
+                recieving = true;
+                return true;
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                MessageBox.Show("Error - Connection Failed");
+                return false;
+            }
+            
             
         }
 

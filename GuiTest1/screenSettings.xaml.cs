@@ -113,5 +113,20 @@ namespace GuiTest1
 
             
         }
+
+        private void bSettingsDelServ_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = this.lbSettingsServers.SelectedItem as ListBoxItem;
+            if (lbi == null)
+            { }
+            else
+            {
+                string servName = lbi.Content.ToString();
+                List<List<string>> data = DBM.SQLRaw("DELETE FROM servers WHERE name='" + servName + "'", "servers");
+                populateServers();
+            }
+            
+            
+        }
     }
 }

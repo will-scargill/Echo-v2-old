@@ -79,10 +79,25 @@ namespace GuiTest1
 
         private void bStartupConn_Click(object sender, RoutedEventArgs e)
         {
-            NM.Connect("127.0.0.1", 15000);
-            NM.RecieveMessage();
-            MainWindow.main.frame.Source = new Uri("screenMain.xaml", UriKind.Relative);
+            if (this.lbStartupServers.SelectedItem == null)
+            {
+                MessageBox.Show("Error - Please select a server");
+            }
+            else
+            {
+                ListBoxItem lbi = this.lbStartupServers.SelectedItem as ListBoxItem;
+                string servName = lbi.Content.ToString();
 
+                List<List<string>> data = DBM.SQLRaw("SELECT * FROM servers WHERE name='" + servName + "'", "servers");
+                string servIP = data[0][2];
+                int servPort = Convert.ToInt16(data[0][3]);
+                bool connected = NM.Connect(servIP, servPort);
+                NM.RecieveMessage();
+                if (connected == true)
+                {
+                    MainWindow.main.frame.Source = new Uri("screenMain.xaml", UriKind.Relative);
+                }
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

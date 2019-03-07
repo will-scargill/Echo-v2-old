@@ -29,9 +29,24 @@ namespace GuiTest1
             Application.Current.MainWindow.Width = 1010;
             MainWindow.main.frame.Height = 570;
             MainWindow.main.frame.Width = 992;
+
+            KeyBinding OpenCmdKeyBinding = new KeyBinding(
+                btnMainSendMsg_KeyBind(),
+                Key.Enter,
+                );
+
+            KeyBinding SendMsgOnEnter = new KeyBinding();
+
+
+            this.InputBindings.Add(OpenCmdKeyBinding);
         }
 
         private void btnMainSendMsg_Click(object sender, RoutedEventArgs e)
+        {
+            NM.SendMessage(this.tbMainMessageEntry.Text);
+            this.tbMainMessageEntry.Text = "";
+        }
+        private void btnMainSendMsg_KeyBind()
         {
             NM.SendMessage(this.tbMainMessageEntry.Text);
             this.tbMainMessageEntry.Text = "";
