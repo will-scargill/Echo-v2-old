@@ -52,7 +52,7 @@ namespace GuiTest1
 
         private static void RecvLoop()
         {
-            byte[] bytes = new byte[1024];
+            byte[] bytes = new byte[4096];
             while (recieving == true)
             {
                 int bytesRec = sender.Receive(bytes);
@@ -72,6 +72,32 @@ namespace GuiTest1
                     case "connReqDenied":
                         NM.DC();
                         break;
+                    case "channelMembers":
+                        screenMain.pageMain.lbMainChannelMembers.Dispatcher.Invoke(() =>
+                        {
+                            screenMain.pageMain.lbMainChannelMembers.Items.Clear();
+                            List<string> channelMembers = ((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject<List<string>>();
+                            
+                            foreach (string username in channelMembers)
+                            {
+                                screenMain.pageMain.lbMainChannelMembers.Items.Add(username);
+                            }
+                        });
+                        break;
+                    case "channelHistory":
+                        screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() =>
+                        {
+                            screenMain.pageMain.lbMainMessages.Items.Clear();
+
+                            List<List<string>> messageHistory = ((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject <List<List<string>>>();
+
+                            foreach (List<string> row in messageHistory)
+                            {
+                                screenMain.pageMain.lbMainMessages.Items.Add(row[0] + ": " + row[3]);
+                            }
+
+                        });
+                        break;
 
                 }
  
@@ -88,6 +114,7 @@ namespace GuiTest1
         public static void DC()
         {
             recieving = false;
+            sender.Close();
         }
     }
 }

@@ -95,3 +95,6 @@ C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenMain.b
 C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.dll
 C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.xml

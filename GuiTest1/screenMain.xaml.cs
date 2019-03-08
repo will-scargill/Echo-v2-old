@@ -31,8 +31,8 @@ namespace GuiTest1
             pageMain = this;
             Application.Current.MainWindow.Height = 600;
             Application.Current.MainWindow.Width = 1010;
-            MainWindow.main.frame.Height = 570;
-            MainWindow.main.frame.Width = 992;
+            //MainWindow.main.frame.Height = 570;
+            //MainWindow.main.frame.Width = 992;
 
             List<string> channels = JsonConvert.DeserializeObject<List<string>>((NM.serverInfo["channels"]).ToString());
 
@@ -45,17 +45,20 @@ namespace GuiTest1
 
         private void btnMainSendMsg_Click(object sender, RoutedEventArgs e)
         {
-            Dictionary<string, object> message = new Dictionary<string, object>();
-            message.Add("username", "Quantum");
-            message.Add("channel", "Channel 1");
-            message.Add("content", this.tbMainMessageEntry.Text);
-            message.Add("messagetype", "inboundMessage");
+            if (channel != null)
+            {
+                Dictionary<string, object> message = new Dictionary<string, object>();
+                message.Add("username", username);
+                message.Add("channel", channel);
+                message.Add("content", this.tbMainMessageEntry.Text);
+                message.Add("messagetype", "inboundMessage");
 
-            string jsonMessage = JsonConvert.SerializeObject(message);
+                string jsonMessage = JsonConvert.SerializeObject(message);
 
-            
 
-            NM.SendMessage(jsonMessage);
+
+                NM.SendMessage(jsonMessage);                
+            }
             this.tbMainMessageEntry.Text = "";
         }
 
@@ -64,17 +67,41 @@ namespace GuiTest1
         {
             if (e.Key == Key.Return)
             {
+                if (channel != null)
+                {
+                    Dictionary<string, object> message = new Dictionary<string, object>();
+                    message.Add("username", username);
+                    message.Add("channel", channel);
+                    message.Add("content", this.tbMainMessageEntry.Text);
+                    message.Add("messagetype", "inboundMessage");
+
+                    string jsonMessage = JsonConvert.SerializeObject(message);
+
+                    NM.SendMessage(jsonMessage);
+                }
+                this.tbMainMessageEntry.Text = "";
+            }
+        }
+
+        private void lbMainChannels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            object lbi = this.lbMainChannels.SelectedItem;
+            if (lbi == null) { }
+            else
+            {
+                string channelName = lbi.ToString();
+                channel = channelName;
                 Dictionary<string, object> message = new Dictionary<string, object>();
-                message.Add("username", "Quantum");
-                message.Add("channel", "Channel 1");
-                message.Add("content", this.tbMainMessageEntry.Text);
-                message.Add("messagetype", "inboundMessage");
+                message.Add("username", username);
+                message.Add("channel", "");
+                message.Add("content", channelName);
+                message.Add("messagetype", "changedChannel");
 
                 string jsonMessage = JsonConvert.SerializeObject(message);
 
                 NM.SendMessage(jsonMessage);
-                this.tbMainMessageEntry.Text = "";
             }
+            
         }
     }
 }

@@ -28,5 +28,9 @@ namespace GuiTest1
             frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);            
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            NM.DC();
+        }
     }
 }
