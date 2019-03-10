@@ -42,10 +42,8 @@
         </DockPanel>
 
         <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
-            <MenuItem Header="Server">
-                <MenuItem Header="Disconnect"/>
-            </MenuItem>
-            <MenuItem Header="Optn 1"/>
+            <MenuItem Header="Disconnect" Click="MenuDisconnect_Click"/>
+            <MenuItem Header="View all users"/>
         </Menu>
     </Grid>
 </Page>

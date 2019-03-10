@@ -103,5 +103,10 @@ namespace GuiTest1
             }
             
         }
+
+        private void MenuDisconnect_Click(object sender, RoutedEventArgs e)
+        {
+            NM.DC();
+        }
     }
 }
