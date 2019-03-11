@@ -29,8 +29,11 @@ namespace GuiTest1
         {
             InitializeComponent();
             pageMain = this;
-            Application.Current.MainWindow.Height = 600;
-            Application.Current.MainWindow.Width = 1010;
+
+            List<string> config = CFM.ReadSettings();
+
+            Application.Current.MainWindow.Height = Convert.ToDouble(config[2]);
+            Application.Current.MainWindow.Width = Convert.ToDouble(config[3]);
             //MainWindow.main.frame.Height = 570;
             //MainWindow.main.frame.Width = 992;
 
@@ -102,6 +105,17 @@ namespace GuiTest1
                 NM.SendMessage(jsonMessage);
             }
             
+        }
+
+        private void MenuItem_Disconn_Click(object sender, RoutedEventArgs e)
+        {
+            NM.DC();
+            CFM.UpdateSetting("mainHeight", Convert.ToString(MainWindow.main.ActualHeight));
+            CFM.UpdateSetting("mainWidth", Convert.ToString(MainWindow.main.ActualWidth));
+            MainWindow.main.frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
+            NM.serverInfo.Clear();
+            Application.Current.MainWindow.Height = 350;
+            Application.Current.MainWindow.Width = 525;            
         }
     }
 }
