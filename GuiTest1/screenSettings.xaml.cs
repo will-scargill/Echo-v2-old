@@ -27,6 +27,13 @@ namespace GuiTest1
             pageSettings = this;
             DBM.SQLInitialise();
             populateServers();
+
+            List<string> config = CFM.ReadSettings();
+
+            cboSettingsClrSch.SelectedValue = config[4];
+
+            //bSettingsNewServ.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)60, (byte)73, (byte)63));
+
         }
 
         private void button_Copy2_Click(object sender, RoutedEventArgs e)
@@ -126,6 +133,87 @@ namespace GuiTest1
                 populateServers();
             }
             
+            
+        }
+
+        private void cboSettingsClrSch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<string> config = CFM.ReadSettings();
+            if (cboSettingsClrSch.SelectedValue == null) { }
+            else
+            {
+                if (cboSettingsClrSch.SelectedValue.ToString() == "Light Theme")
+                {
+                    if (config[4] == "Light Theme") { }
+                    else
+                    {
+
+                    }
+                }
+                else if (cboSettingsClrSch.SelectedValue.ToString() == "Dark Theme")
+                {
+                    if (config[4] == "Dark Theme") { }
+                    else
+                    {
+                        MainWindow.main.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)20, (byte)25, (byte)21));
+
+                        Panel mainContainer = (Panel)this.Content;
+
+                        /// GetAll UIElement
+                        UIElementCollection element = mainContainer.Children;
+
+                        /// casting the UIElementCollection into List
+                        List<FrameworkElement> lstElement = element.Cast<FrameworkElement>().ToList();
+
+                        /// Geting all Control from list
+                        var lstControl = lstElement.OfType<Control>();
+
+                        foreach (Control control in lstControl)
+                        {
+                            ///Hide all Controls
+                            switch (control.GetType().ToString())
+                            {
+                                case "System.Windows.Controls.Label":
+                                    {
+                                        control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                                        break;
+                                    }
+                                case "System.Windows.Controls.TextBox":
+                                    {
+                                        control.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)23, (byte)28, (byte)24));
+                                        control.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)56, (byte)56, (byte)56));
+                                        control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                                        break;
+                                    }
+                                case "System.Windows.Controls.Button":
+                                    {
+                                        control.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)23, (byte)28, (byte)24));
+                                        control.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)56, (byte)56, (byte)56));
+                                        control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                                        break;
+                                    }
+                                case "System.Windows.Controls.ListBox":
+                                    {
+                                        control.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)23, (byte)28, (byte)24));
+                                        control.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)56, (byte)56, (byte)56));
+                                        control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                                        break;
+                                    }
+                                case "System.Windows.Controls.ComboBox":
+                                    {
+                                        control.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)23, (byte)28, (byte)24));
+                                        control.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)56, (byte)56, (byte)56));
+                                        control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                                        break;
+                                    }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+
             
         }
     }

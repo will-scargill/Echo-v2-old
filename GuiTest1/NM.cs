@@ -9,6 +9,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Newtonsoft.Json;
+using System.Windows.Controls;
+using System.Diagnostics;
+using System.Windows.Automation.Peers;
+using System.Windows.Media;
 
 namespace GuiTest1
 {
@@ -16,6 +20,8 @@ namespace GuiTest1
     {
         private static Socket sender;
         public static bool recieving;
+        private static List<List<string>> historyArchive;
+        private static bool moreMessages = true;
 
         public static Dictionary<string, object> serverInfo = new Dictionary<string, object>();
 
@@ -52,6 +58,7 @@ namespace GuiTest1
 
         private static void RecvLoop()
         {
+            ASCIIEncoding ascii = new ASCIIEncoding();
             byte[] bytes = new byte[4096];
             try
             {
@@ -65,7 +72,15 @@ namespace GuiTest1
                     switch (message["messagetype"])
                     {
                         case "outboundMessage":
-                            screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() => { screenMain.pageMain.lbMainMessages.Items.Add(message["content"]); });
+                            screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() => {
+                                screenMain.pageMain.lbMainMessages.Items.Add(message["content"]);
+                                if (VisualTreeHelper.GetChildrenCount(screenMain.pageMain.lbMainMessages) > 0)
+                                {
+                                    Border border = (Border)VisualTreeHelper.GetChild(screenMain.pageMain.lbMainMessages, 0);
+                                    ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                                    scrollViewer.ScrollToBottom();
+                                }
+                            });
                             break;
                         case "connReqAccepted":
                             serverInfo.Add("channels", message["content"]);
@@ -90,15 +105,60 @@ namespace GuiTest1
                             screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() =>
                             {
                                 screenMain.pageMain.lbMainMessages.Items.Clear();
-
+                                
                                 List<List<string>> messageHistory = ((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject<List<List<string>>>();
+                                historyArchive = messageHistory;
+
+                                if (messageHistory.Count == 50)
+                                    screenMain.pageMain.lbMainMessages.Items.Add("[Load more messages]");
 
                                 foreach (List<string> row in messageHistory)
                                 {
                                     screenMain.pageMain.lbMainMessages.Items.Add(row[0] + ": " + row[3]);
                                 }
-
+                                if (VisualTreeHelper.GetChildrenCount(screenMain.pageMain.lbMainMessages) > 0)
+                                {
+                                    Border border = (Border)VisualTreeHelper.GetChild(screenMain.pageMain.lbMainMessages, 0);
+                                    ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                                    scrollViewer.ScrollToBottom();
+                                }
+                                screenMain.timesUpdated = 1;
                             });
+                            break;
+                        case "userUpdate":
+                            if ((string)message["content"] == "username")
+                            {
+                                screenMain.username = (string)message["username"];
+                            }
+                            break;
+                        case "additionalHistory":
+                            {
+                                moreMessages = false;
+                                foreach (List<string> item in ((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject<List<List<string>>>())
+                                {
+                                    historyArchive.Insert(0, item);
+                                }
+
+                                if (((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject<List<List<string>>>().Count == 50)
+                                {
+                                    moreMessages = true;
+                                }
+
+                                screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() =>
+                                {
+                                    screenMain.pageMain.lbMainMessages.Items.Clear();
+                                    if (moreMessages == true)
+                                    {
+                                        screenMain.pageMain.lbMainMessages.Items.Add("[Load more messages]");
+                                    }
+
+                                    foreach (List<string> row in historyArchive)
+                                    {
+                                        screenMain.pageMain.lbMainMessages.Items.Add(row[0] + ": " + row[3]);
+                                    }
+
+                                });
+                            }
                             break;
 
                     }
@@ -109,10 +169,18 @@ namespace GuiTest1
                 if (recieving == true)
                 {
                     MessageBox.Show("Error - Connection Lost");
-                    MainWindow.main.frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
+                    MainWindow.main.Dispatcher.Invoke(() =>
+                    {
+                        MainWindow.main.frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
+                    });
+                    
                     NM.serverInfo.Clear();
-                    Application.Current.MainWindow.Height = 350;
-                    Application.Current.MainWindow.Width = 525;
+                    MainWindow.main.Dispatcher.Invoke(() =>
+                    {
+                        Application.Current.MainWindow.Height = 350;
+                        Application.Current.MainWindow.Width = 525;
+                    });
+                    
                 }
             }
         }

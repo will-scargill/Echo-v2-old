@@ -22,14 +22,14 @@ namespace GuiTest1
     public partial class screenMain : Page
     {
         public static screenMain pageMain;
-        public static string username;
+        public static string username = "";
         public static string channel;
+        public static int timesUpdated = 0;
 
         public screenMain()
         {
             InitializeComponent();
             pageMain = this;
-
             List<string> config = CFM.ReadSettings();
 
             Application.Current.MainWindow.Height = Convert.ToDouble(config[2]);
@@ -48,7 +48,7 @@ namespace GuiTest1
 
         private void btnMainSendMsg_Click(object sender, RoutedEventArgs e)
         {
-            if (channel != null)
+            if (channel != "")
             {
                 Dictionary<string, object> message = new Dictionary<string, object>();
                 message.Add("username", username);
@@ -70,7 +70,7 @@ namespace GuiTest1
         {
             if (e.Key == Key.Return)
             {
-                if (channel != null)
+                if (channel != "")
                 {
                     Dictionary<string, object> message = new Dictionary<string, object>();
                     message.Add("username", username);
@@ -116,6 +116,31 @@ namespace GuiTest1
             NM.serverInfo.Clear();
             Application.Current.MainWindow.Height = 350;
             Application.Current.MainWindow.Width = 525;            
+        }
+
+        private void lbMainMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string messageContent = (string)this.lbMainMessages.SelectedItem;
+            if (messageContent == "[Load more messages]")
+            {
+                screenMain.timesUpdated += 1;
+                Dictionary<string, object> message = new Dictionary<string, object>();
+
+                message.Add("username", "");
+                message.Add("channel", channel);
+                message.Add("content", timesUpdated);
+                message.Add("messagetype", "messageReq");
+
+                string jsonMessage = JsonConvert.SerializeObject(message);
+
+                NM.SendMessage(jsonMessage);
+                
+            }
+        }
+
+        private void MenuItem_ViewAll_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
