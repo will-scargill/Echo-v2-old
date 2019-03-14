@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,33 @@ namespace GuiTest1
             DBM.SQLInitialise();
             populateServers();
             List<string> settings = CFM.ReadSettings();
-            
 
+            List<string> config = CFM.ReadSettings();
+
+            if (config[4] == "Light Theme")
+            {
+
+            }
+            else if (config[4] == "Dark Theme")
+            {
+                VM.DarkTheme("screenStartup");
+            }
+
+            Panel mainContainer = (Panel)this.Content;
+
+            /// GetAll UIElement
+            UIElementCollection element = mainContainer.Children;
+
+            /// casting the UIElementCollection into List
+            List<FrameworkElement> lstElement = element.Cast<FrameworkElement>().ToList();
+
+            /// Geting all Control from list
+            var lstControl = lstElement.OfType<Control>();
+
+            foreach (Control control in lstControl)
+            {
+                Debug.WriteLine(control.GetType().ToString());
+            }
 
             if (Convert.ToBoolean(settings[0]) == true)
             {

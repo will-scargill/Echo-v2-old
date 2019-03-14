@@ -12,7 +12,7 @@
         <KeyBinding Command="{Binding btnMainSendMsg_Click}" Key="Enter"/>
     </Page.InputBindings>
 
-    <Grid KeyUp="Grid_KeyUp">
+    <Grid x:Name="gridMain" KeyUp="Grid_KeyUp">
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="1*"/>
@@ -42,13 +42,8 @@
         </DockPanel>
 
         <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
-<<<<<<< HEAD
-            <MenuItem Header="Disconnect" Click="MenuDisconnect_Click"/>
-            <MenuItem Header="View all users"/>
-=======
             <MenuItem Header="Disconnect" Click="MenuItem_Disconn_Click"/>
             <MenuItem Header="View all users" Click="MenuItem_ViewAll_Click"/>
->>>>>>> net
         </Menu>
     </Grid>
 </Page>

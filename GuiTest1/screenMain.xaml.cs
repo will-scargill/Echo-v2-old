@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,8 @@ namespace GuiTest1
             //MainWindow.main.frame.Height = 570;
             //MainWindow.main.frame.Width = 992;
 
+            
+
             List<string> channels = JsonConvert.DeserializeObject<List<string>>((NM.serverInfo["channels"]).ToString());
 
             foreach (string ch in channels)
@@ -44,6 +47,14 @@ namespace GuiTest1
                 this.lbMainChannels.Items.Add(ch);
             }
 
+            if (config[4] == "Light Theme")
+            {
+
+            }
+            else if (config[4] == "Dark Theme")
+            {
+                VM.DarkTheme("screenMain");
+            }
         }
 
         private void btnMainSendMsg_Click(object sender, RoutedEventArgs e)
@@ -107,11 +118,11 @@ namespace GuiTest1
             
         }
 
-<<<<<<< HEAD
         private void MenuDisconnect_Click(object sender, RoutedEventArgs e)
         {
             NM.DC();
-=======
+        }
+
         private void MenuItem_Disconn_Click(object sender, RoutedEventArgs e)
         {
             NM.DC();
@@ -146,7 +157,7 @@ namespace GuiTest1
         private void MenuItem_ViewAll_Click(object sender, RoutedEventArgs e)
         {
 
->>>>>>> net
+
         }
     }
 }

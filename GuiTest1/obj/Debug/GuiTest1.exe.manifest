@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GuiTest1.exe" size="51680">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GuiTest1.exe" size="69088">
       <assemblyIdentity name="GuiTest1" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LDGX5I1oI5q57+LQj2zvIQeMu1WBCjHyVVpZyuhm/qo=</dsig:DigestValue>
+        <dsig:DigestValue>t1PXr+Tr9PcyB+YA5MtMSOMbIW/x0DpMxPSr+GkZvtU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
