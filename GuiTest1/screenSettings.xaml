@@ -9,7 +9,7 @@
       Title="screenSettings">
 
     <Grid>
-        <ListBox x:Name="lbSettingsServers" HorizontalAlignment="Left" Height="269" Margin="10,10,0,0" VerticalAlignment="Top" Width="229" SelectionChanged="lbSettingsServers_SelectionChanged"/>
+        <ListBox x:Name="lbSettingsServers" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" VerticalAlignment="Top" Width="229" SelectionChanged="lbSettingsServers_SelectionChanged"/>
         <TextBox x:Name="tbSettingsName" HorizontalAlignment="Left" Height="23" Margin="248,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
         <TextBox x:Name="tbSettingsIP" HorizontalAlignment="Left" Height="23" Margin="248,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
         <TextBox x:Name="tbSettingsPort" HorizontalAlignment="Left" Height="23" Margin="248,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="248"/>
@@ -20,6 +20,10 @@
         <Label x:Name="lSettingsServName" Content="Server Name" HorizontalAlignment="Left" Margin="248,24,0,0" VerticalAlignment="Top" Width="149"/>
         <Label x:Name="lSettingsServIP" Content="Server IP" HorizontalAlignment="Left" Margin="248,74,0,0" VerticalAlignment="Top" Width="149"/>
         <Label x:Name="lSettingsServPort" Content="Server Port" HorizontalAlignment="Left" Margin="248,123,0,0" VerticalAlignment="Top" Width="149"/>
+        <ComboBox x:Name="cboSettingsClrSch" HorizontalAlignment="Left" Height="26" Margin="10,253,0,0" VerticalAlignment="Top" Width="229" SelectionChanged="cboSettingsClrSch_SelectionChanged" SelectedValuePath="Content">
+            <ComboBoxItem Content="Light Theme"/>
+            <ComboBoxItem Content="Dark Theme"/>
+        </ComboBox>
 
     </Grid>
 </Page>

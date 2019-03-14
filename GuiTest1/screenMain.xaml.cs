@@ -22,15 +22,18 @@ namespace GuiTest1
     public partial class screenMain : Page
     {
         public static screenMain pageMain;
-        public static string username;
+        public static string username = "";
         public static string channel;
+        public static int timesUpdated = 0;
 
         public screenMain()
         {
             InitializeComponent();
             pageMain = this;
-            Application.Current.MainWindow.Height = 600;
-            Application.Current.MainWindow.Width = 1010;
+            List<string> config = CFM.ReadSettings();
+
+            Application.Current.MainWindow.Height = Convert.ToDouble(config[2]);
+            Application.Current.MainWindow.Width = Convert.ToDouble(config[3]);
             //MainWindow.main.frame.Height = 570;
             //MainWindow.main.frame.Width = 992;
 
@@ -45,7 +48,7 @@ namespace GuiTest1
 
         private void btnMainSendMsg_Click(object sender, RoutedEventArgs e)
         {
-            if (channel != null)
+            if (channel != "")
             {
                 Dictionary<string, object> message = new Dictionary<string, object>();
                 message.Add("username", username);
@@ -67,7 +70,7 @@ namespace GuiTest1
         {
             if (e.Key == Key.Return)
             {
-                if (channel != null)
+                if (channel != "")
                 {
                     Dictionary<string, object> message = new Dictionary<string, object>();
                     message.Add("username", username);
@@ -104,9 +107,46 @@ namespace GuiTest1
             
         }
 
+<<<<<<< HEAD
         private void MenuDisconnect_Click(object sender, RoutedEventArgs e)
         {
             NM.DC();
+=======
+        private void MenuItem_Disconn_Click(object sender, RoutedEventArgs e)
+        {
+            NM.DC();
+            CFM.UpdateSetting("mainHeight", Convert.ToString(MainWindow.main.ActualHeight));
+            CFM.UpdateSetting("mainWidth", Convert.ToString(MainWindow.main.ActualWidth));
+            MainWindow.main.frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
+            NM.serverInfo.Clear();
+            Application.Current.MainWindow.Height = 350;
+            Application.Current.MainWindow.Width = 525;            
+        }
+
+        private void lbMainMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string messageContent = (string)this.lbMainMessages.SelectedItem;
+            if (messageContent == "[Load more messages]")
+            {
+                screenMain.timesUpdated += 1;
+                Dictionary<string, object> message = new Dictionary<string, object>();
+
+                message.Add("username", "");
+                message.Add("channel", channel);
+                message.Add("content", timesUpdated);
+                message.Add("messagetype", "messageReq");
+
+                string jsonMessage = JsonConvert.SerializeObject(message);
+
+                NM.SendMessage(jsonMessage);
+                
+            }
+        }
+
+        private void MenuItem_ViewAll_Click(object sender, RoutedEventArgs e)
+        {
+
+>>>>>>> net
         }
     }
 }

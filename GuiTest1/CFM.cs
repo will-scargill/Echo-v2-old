@@ -13,9 +13,15 @@ namespace GuiTest1
             List<string> data = new List<string> { };
             string saveUsername = ConfigurationManager.AppSettings.Get("saveUsername");
             string username = ConfigurationManager.AppSettings.Get("username");
+            string height = ConfigurationManager.AppSettings.Get("mainHeight");
+            string width = ConfigurationManager.AppSettings.Get("mainWidth");
+            string colourScheme = ConfigurationManager.AppSettings.Get("colourScheme");
 
             data.Add(saveUsername);
             data.Add(username);
+            data.Add(height);
+            data.Add(width);
+            data.Add(colourScheme);
 
             return data;
             
