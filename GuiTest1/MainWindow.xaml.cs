@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GuiTest1
+namespace ECHO
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -25,7 +25,24 @@ namespace GuiTest1
         {
             InitializeComponent();
             main = this;
-            frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);            
+            frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (NM.recieving == true)
+                NM.DC();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (NM.recieving == true)
+                NM.DC();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //MessageBox.Show("Size Changed");
         }
     }
 }

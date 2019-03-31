@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GuiTest1
+namespace ECHO
 {
     /// <summary>
     /// Interaction logic for screenSettings.xaml
@@ -27,6 +27,19 @@ namespace GuiTest1
             pageSettings = this;
             DBM.SQLInitialise();
             populateServers();
+
+            List<string> config = CFM.ReadSettings();
+
+            cboSettingsClrSch.SelectedValue = config[4];
+
+            if (config[4] == "Light Theme")
+            {
+
+            }
+            else if (config[4] == "Dark Theme")
+            {
+                VM.DarkTheme("screenSettings");
+            }
         }
 
         private void button_Copy2_Click(object sender, RoutedEventArgs e)
@@ -117,9 +130,50 @@ namespace GuiTest1
         private void bSettingsDelServ_Click(object sender, RoutedEventArgs e)
         {
             ListBoxItem lbi = this.lbSettingsServers.SelectedItem as ListBoxItem;
-            string serverName = lbi.Content.ToString();
-            List<List<object>> data = DBM.SQLRaw("DELETE FROM servers WHERE name='" + serverName + "'", "servers");
-            populateServers();
+            if (lbi == null)
+            { }
+            else
+            {
+                string servName = lbi.Content.ToString();
+                List<List<string>> data = DBM.SQLRaw("DELETE FROM servers WHERE name='" + servName + "'", "servers");
+                populateServers();
+            }
+            
+            
+        }
+
+        private void cboSettingsClrSch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<string> config = CFM.ReadSettings();
+            if (cboSettingsClrSch.SelectedValue == null) { }
+            else
+            {
+                if (cboSettingsClrSch.SelectedValue.ToString() == "Light Theme")
+                {
+                    if (config[4] == "Light Theme") { }
+                    else
+                    {
+                        VM.LightTheme("screenSettings");
+                        CFM.UpdateSetting("colourScheme", "Light Theme");
+                    }
+                }
+                else if (cboSettingsClrSch.SelectedValue.ToString() == "Dark Theme")
+                {
+                    if (config[4] == "Dark Theme") { }
+                    else
+                    {
+                        VM.DarkTheme("screenSettings");
+                        CFM.UpdateSetting("colourScheme", "Dark Theme");
+                    }
+                }
+            }
+
+            
+        }
+
+        private void toggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
