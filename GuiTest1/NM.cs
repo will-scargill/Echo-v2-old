@@ -66,7 +66,7 @@ namespace ECHO
         private static void RecvLoop()
         {
             ASCIIEncoding ascii = new ASCIIEncoding();
-            byte[] bytes = new byte[10240];
+            byte[] bytes = new byte[20480];
             try
             {
                 while (recieving == true)
@@ -136,6 +136,8 @@ namespace ECHO
                                     Border border = (Border)VisualTreeHelper.GetChild(screenMain.pageMain.lbMainMessages, 0);
                                     ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
                                     scrollViewer.ScrollToBottom();
+
+                                   
                                 }
                                 screenMain.timesUpdated = 1;
                             });
@@ -147,8 +149,8 @@ namespace ECHO
                             }
                             break;
                         case "additionalHistory":
-                            {   
-                                
+                            {                                                                
+                                if (screenMain.channel == "")
                                 moreMessages = false;
                                 foreach (List<string> row in ((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject<List<List<string>>>())
                                 {
@@ -159,9 +161,13 @@ namespace ECHO
                                 {
                                     moreMessages = true;
                                 }
+                                else { screenMain.stopUpdating = true; }
 
                                 screenMain.pageMain.lbMainMessages.Dispatcher.Invoke(() =>
                                 {
+
+                                    object posRetain = screenMain.pageMain.lbMainMessages.Items.GetItemAt(1);
+
                                     screenMain.pageMain.lbMainMessages.Items.Clear();
                                     if (moreMessages == true)
                                     {
@@ -172,6 +178,15 @@ namespace ECHO
                                     {
                                         screenMain.pageMain.lbMainMessages.Items.Add(msg);
                                     }
+                                    //ScrollToVerticalOffset(row * _grid.RowHeight.Value);
+                                    Border border = (Border)VisualTreeHelper.GetChild(screenMain.pageMain.lbMainMessages, 0);
+                                    ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);                                  
+                                    screenMain.pageMain.lbMainMessages.ScrollIntoView(posRetain);
+                                    int visibleItems = Convert.ToInt32(scrollViewer.ViewportHeight);
+                                    screenMain.pageMain.lbMainMessages.SelectedItem = posRetain;
+                                    int currentIndex = screenMain.pageMain.lbMainMessages.SelectedIndex;
+                                    object scrollDownTo = screenMain.pageMain.lbMainMessages.Items.GetItemAt(currentIndex + visibleItems - 2);
+                                    screenMain.pageMain.lbMainMessages.ScrollIntoView(scrollDownTo);
 
                                 });
                             }
@@ -237,8 +252,8 @@ namespace ECHO
 
             string jsonMessage = JsonConvert.SerializeObject(message);
 
-            NM.SendMessage(jsonMessage);
-
+            //NM.SendMessage(jsonMessage);
+            screenMain.channel = "";
             recieving = false;
             sender.Close();
         }

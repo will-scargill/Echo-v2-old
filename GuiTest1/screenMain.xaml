@@ -46,7 +46,8 @@
                 <Button x:Name="btnMainSendMsg" Content="Send" Click="btnMainSendMsg_Click" DockPanel.Dock="Right" Height="30" Width="50" Margin="10,0,0,0"/>
                 <TextBox x:Name="tbMainMessageEntry" TextWrapping="Wrap" Text="" VerticalAlignment="Top" DockPanel.Dock="Left" Height="30"/>
             </DockPanel>
-            <ListBox x:Name="lbMainMessages" DockPanel.Dock="Top" SelectionChanged="lbMainMessages_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+            <ListBox x:Name="lbMainMessages" DockPanel.Dock="Top" SelectionChanged="lbMainMessages_SelectionChanged" ScrollViewer.ScrollChanged="lbMainMessages_ScrollBar_MouseUp" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel LastChildFill="True">
@@ -64,6 +65,7 @@
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>
+            
         </DockPanel>
 
         <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">

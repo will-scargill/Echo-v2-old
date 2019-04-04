@@ -24,8 +24,10 @@ namespace ECHO
     {
         public static screenMain pageMain;
         public static string username = "";
-        public static string channel;
+        public static string channel = "";
         public static int timesUpdated = 0;
+        public static bool stopUpdating = false;
+
 
         public screenMain()
         {
@@ -39,7 +41,9 @@ namespace ECHO
             //MainWindow.main.frame.Height = 570;
             //MainWindow.main.frame.Width = 992;
 
-            
+
+    
+
 
             List<string> channels = JsonConvert.DeserializeObject<List<string>>((NM.serverInfo["channels"]).ToString());
 
@@ -104,6 +108,7 @@ namespace ECHO
             if (lbi == null) { }
             else
             {
+                stopUpdating = false;
                 string channelName = lbi.ToString();
                 channel = channelName;
                 Dictionary<string, object> message = new Dictionary<string, object>();
@@ -131,6 +136,7 @@ namespace ECHO
             CFM.UpdateSetting("mainWidth", Convert.ToString(MainWindow.main.ActualWidth));
             MainWindow.main.frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
             NM.serverInfo.Clear();
+            channel = "";
             Application.Current.MainWindow.Height = 350;
             Application.Current.MainWindow.Width = 525;            
         }
@@ -253,6 +259,34 @@ namespace ECHO
                 Message item = (Message)lbMainMessages.SelectedItem;
                 Clipboard.SetText(item.Content);
             }
+        }
+
+        private void lbMainMessages_ScrollBar_MouseUp(object sender, RoutedEventArgs e)
+        {
+            if (channel != "" && stopUpdating == false)
+            {   
+
+                Border border = (Border)VisualTreeHelper.GetChild(lbMainMessages, 0);
+                ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+
+                scrollViewer.ReleaseMouseCapture();
+
+                if (scrollViewer.VerticalOffset == 0)
+                {
+                    screenMain.timesUpdated += 1;
+                    Dictionary<string, object> message = new Dictionary<string, object>();
+
+                    message.Add("username", "");
+                    message.Add("channel", channel);
+                    message.Add("content", timesUpdated);
+                    message.Add("messagetype", "messageReq");
+
+                    string jsonMessage = JsonConvert.SerializeObject(message);
+
+                    NM.SendMessage(jsonMessage);
+                }
+            }
+
         }
     }
 }

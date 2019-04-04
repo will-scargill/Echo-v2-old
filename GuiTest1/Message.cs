@@ -32,6 +32,11 @@ namespace ECHO
 
         private string _datetime;
 
+        private string hour;
+        private string minute;
+        private string day;
+        private string month;
+
         public string Datetime
         {
             get { return this._datetime; }
@@ -41,10 +46,59 @@ namespace ECHO
                 {
                     this._datetime = "";
                 }
-                else if (Convert.ToDateTime(value).Day < DateTime.Now.Day)
-                { this._datetime = value.Substring(0, 6) + value.Substring(8, 2); }
                 else
-                { this._datetime = value.Substring(11, 5); } 
+                {
+                    DateTime valDT = Convert.ToDateTime(value);
+                    DateTime currentDT = DateTime.Now;
+
+                    int timeCheck = DateTime.Compare(valDT, currentDT);
+
+                    if (timeCheck < 0)
+                    {
+                        if (valDT.Date == currentDT.Date)
+                        {
+                            if (valDT.Minute < 10)
+                            { minute = "0" + valDT.Minute.ToString(); }
+                            else
+                            { minute = valDT.Minute.ToString(); }
+                            if (valDT.Hour < 10)
+                            { hour = "0" + valDT.Hour.ToString(); }
+                            else
+                            { hour = valDT.Hour.ToString(); }
+
+                            this._datetime = hour + ":" + minute;
+                        }
+                        //{ this._datetime = value.Substring(11, 5); }
+                        else
+                        {
+                            if (valDT.Day < 10)
+                            { day = "0" + valDT.Day.ToString(); }
+                            else
+                            { day = valDT.Day.ToString(); }
+                            if (valDT.Month < 10)
+                            { month = "0" + valDT.Month.ToString(); }
+                            else
+                            { month = valDT.Month.ToString(); }
+
+                            this._datetime = day + "/" + month;
+                        }
+                        //{ this._datetime = value.Substring(0, 6) + value.Substring(8, 2); }
+                    }
+                    else if (timeCheck == 0)
+                    {
+                        if (valDT.Minute < 10)
+                        { minute = "0" + valDT.Minute.ToString(); }
+                        else
+                        { minute = valDT.Minute.ToString(); }
+                        if (valDT.Hour < 10)
+                        { hour = "0" + valDT.Hour.ToString(); }
+                        else
+                        { hour = valDT.Hour.ToString(); }
+
+                        this._datetime = hour + ":" + minute;
+                    }
+                }
+                
             }
         }
 
@@ -58,7 +112,7 @@ namespace ECHO
                 if (value == "")
                     this._colour = "White";
                 else
-                    Debug.WriteLine(value);
+                    //Debug.WriteLine(value);
                     this._colour = value;
             }
         }
