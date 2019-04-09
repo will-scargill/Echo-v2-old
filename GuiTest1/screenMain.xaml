@@ -68,9 +68,9 @@
             
         </DockPanel>
 
-        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
+        <Menu x:Name="menuMain" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
             <MenuItem Header="Disconnect" Click="MenuItem_Disconn_Click"/>
-            <MenuItem Header="View all users" Click="MenuItem_ViewAll_Click"/>
+            <MenuItem x:Name="viewAllUsers" Header="View all users" Click="viewAllUsers_Click"/>
         </Menu>
     </Grid>
 </Page>

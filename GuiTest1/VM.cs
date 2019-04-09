@@ -171,6 +171,13 @@ namespace ECHO
                             control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
                             break;
                         }
+                    case "System.Windows.Controls.PasswordBox":
+                        {
+                            control.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)23, (byte)28, (byte)24));
+                            control.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)56, (byte)56, (byte)56));
+                            control.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                            break;
+                        }
                 }
             }
         }

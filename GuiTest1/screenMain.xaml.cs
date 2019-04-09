@@ -42,9 +42,6 @@ namespace ECHO
             //MainWindow.main.frame.Width = 992;
 
 
-    
-
-
             List<string> channels = JsonConvert.DeserializeObject<List<string>>((NM.serverInfo["channels"]).ToString());
 
             foreach (string ch in channels)
@@ -287,6 +284,28 @@ namespace ECHO
                 }
             }
 
+        }
+
+        private void viewAllUsers_Click(object sender, RoutedEventArgs e)
+        {
+            if (true)
+            {
+                Dictionary<string, object> message = new Dictionary<string, object>
+                {
+                    { "username", "" },
+                    { "channel", "" },
+                    { "content", "" },
+                    { "messagetype", "userReq" }
+                };
+
+                string jsonMessage = JsonConvert.SerializeObject(message);
+
+                //NM.SendMessage(jsonMessage);
+            }
+            else
+            {
+                //MessageBox.Show("something else");
+            }
         }
     }
 }

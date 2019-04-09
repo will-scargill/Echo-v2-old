@@ -20,7 +20,7 @@ namespace ECHO
         private static Socket sender;
         public static bool recieving;
         private static List<Message> historyArchive = new List<Message>();
-        private static bool moreMessages = true;
+        private static bool moreMessages;
 
         public static Dictionary<string, object> serverInfo = new Dictionary<string, object>();
 
@@ -48,19 +48,11 @@ namespace ECHO
 
         public static void SendMessage(string message)
         {
-            //var thread = new Thread(() => SendMessageThread(message));
-            //thread.Start();
-
             byte[] msg = Encoding.UTF8.GetBytes(message);
 
             int bytesSent = sender.Send(msg);
 
             Debug.WriteLine("Sent Message");
-        }
-
-        private static void SendMessageThread(string message)
-        {
-            
         }
 
         private static void RecvLoop()
@@ -96,6 +88,14 @@ namespace ECHO
                             break;
                         case "connReqDenied":
                             NM.DC();
+                            if (message["content"] as string == "banned")
+                            {
+                                MessageBox.Show("You are banned from this server");
+                            }
+                            else if (message["content"] as string == "password")
+                            {
+                                MessageBox.Show("Error - Incorrect password");
+                            }
                             break;
                         case "channelMembers":
                             screenMain.pageMain.lbMainChannelMembers.Dispatcher.Invoke(() =>
@@ -124,8 +124,8 @@ namespace ECHO
 
                                 //historyArchive = messageHistory;
 
-                                if (messageHistory.Count == 50)
-                                    screenMain.pageMain.lbMainMessages.Items.Add(new Message("","system","[Load more messages]", ""));
+                                //if (messageHistory.Count == 50)
+                                    //screenMain.pageMain.lbMainMessages.Items.Add(new Message("","system","[Load more messages]", ""));
 
                                 foreach (Message msg in historyArchive)
                                 {
@@ -169,10 +169,10 @@ namespace ECHO
                                     object posRetain = screenMain.pageMain.lbMainMessages.Items.GetItemAt(1);
 
                                     screenMain.pageMain.lbMainMessages.Items.Clear();
-                                    if (moreMessages == true)
-                                    {
-                                        screenMain.pageMain.lbMainMessages.Items.Add(new Message("", "system", "[Load more messages]", ""));
-                                    }
+                                    //if (moreMessages == true)
+                                    //{
+                                        //screenMain.pageMain.lbMainMessages.Items.Add(new Message("", "system", "[Load more messages]", ""));
+                                    //}
 
                                     foreach (Message msg in historyArchive)
                                     {
@@ -210,6 +210,31 @@ namespace ECHO
                                 
                             }
                             break;
+                        case "userList":
+                            {
+                                screenMain.pageMain.Dispatcher.Invoke(() =>
+                                {
+                                    MenuItem subItem = new MenuItem();
+                                    MenuItem viewAllUsers = (MenuItem)screenMain.pageMain.menuMain.Items.GetItemAt(1);
+                                    viewAllUsers.Items.Clear();
+                                    foreach (string item in ((Newtonsoft.Json.Linq.JArray)message["content"]).ToObject<List<string>>())
+                                    {
+                                        subItem = new MenuItem();
+                                        subItem.Header = item;
+                                        subItem.Background = new SolidColorBrush(Color.FromArgb(0xFF, (byte)23, (byte)28, (byte)24));
+                                        subItem.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)56, (byte)56, (byte)56));
+                                        subItem.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, (byte)240, (byte)247, (byte)244));
+                                        //subItem.Click = 
+                                        //Style style = Application.Current.FindResource("DarkTheme") as Style;
+                                        //subItem.Style = style;
+                                        viewAllUsers.Items.Add(subItem);
+                                    }
+                                       
+
+
+                                });                                
+                            }
+                            break;
                     }
                 }
             }
@@ -224,6 +249,8 @@ namespace ECHO
                     });
                     
                     NM.serverInfo.Clear();
+                    screenMain.channel = "";
+                    NM.DC();
                     MainWindow.main.Dispatcher.Invoke(() =>
                     {
                         Application.Current.MainWindow.Height = 350;
@@ -243,12 +270,15 @@ namespace ECHO
 
         public static void DC()
         {
+            NM.serverInfo.Clear();
+
             Dictionary<string, object> message = new Dictionary<string, object>();
 
             message.Add("username", "");
             message.Add("channel", "");
             message.Add("content", "");
             message.Add("messagetype", "disconnect");
+
 
             string jsonMessage = JsonConvert.SerializeObject(message);
 

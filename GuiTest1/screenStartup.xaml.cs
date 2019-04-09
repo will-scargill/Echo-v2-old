@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +24,7 @@ namespace ECHO
     public partial class screenStartup : Page
     {
         public static screenStartup pageStartup;
-        
+        private static List<string> config;
 
         public screenStartup()
         {
@@ -32,9 +33,8 @@ namespace ECHO
             pageStartup = this;
             DBM.SQLInitialise();
             populateServers();
-            List<string> settings = CFM.ReadSettings();
 
-            List<string> config = CFM.ReadSettings();
+            config = CFM.ReadSettings();
 
             if (config[4] == "Light Theme")
             {
@@ -61,15 +61,19 @@ namespace ECHO
                 Debug.WriteLine(control.GetType().ToString());
             }
 
-            if (Convert.ToBoolean(settings[0]) == true)
+            if (Convert.ToBoolean(config[0]) == true)
             {
                 this.cbRememberUser.IsChecked = true;
-                this.tbStartupUsername.Text = settings[1];
+                this.tbStartupUsername.Text = config[1];
             }
         }
 
         private void bStartupSettings_Click(object sender, RoutedEventArgs e)
         {
+            if (config[0] == "true")
+            {
+                CFM.UpdateSetting("username", Regex.Replace(tbStartupUsername.Text, @" ", ""));
+            }
             MainWindow.main.frame.Source = new Uri("screenSettings.xaml", UriKind.Relative);
         }
 
@@ -108,7 +112,11 @@ namespace ECHO
         }
 
         private void bStartupConn_Click(object sender, RoutedEventArgs e)
-        {
+        {   
+            if (config[0] == "true")
+            {
+                CFM.UpdateSetting("username", Regex.Replace(tbStartupUsername.Text, @" ", ""));
+            }
             if (this.lbStartupServers.SelectedItem == null)
             {
                 MessageBox.Show("Error - Please select a server");
@@ -118,7 +126,7 @@ namespace ECHO
                 MessageBox.Show("Please enter a username");
             }
             else
-            {
+            {   
                 ListBoxItem lbi = this.lbStartupServers.SelectedItem as ListBoxItem;
                 string servName = lbi.Content.ToString();
 
@@ -131,7 +139,10 @@ namespace ECHO
                 {
                     NM.RecieveMessage();
 
-                    List<string> connRequest = new List<string> { this.tbStartupUsername.Text, this.tbStartupPassword.Text };
+                    string username = tbStartupUsername.Text;
+                    username = Regex.Replace(username, @" ", "");
+
+                    List<string> connRequest = new List<string> { username, this.tbStartupPassword.Password };
 
                     Dictionary<string, object> message = new Dictionary<string, object>();
 

@@ -13,14 +13,14 @@
     <Grid>
         <Button x:Name="bStartupSettings" HorizontalAlignment="Left" Height="40" Margin="453,10,0,0" VerticalAlignment="Top" Width="40" Click="bStartupSettings_Click">
             <StackPanel>
-                <Image Source="pack://siteoforigin:,,,/Resources/settingsCog.png" />
+                <Image Source="/Resources/settingsCog.png" />
             </StackPanel>
         </Button>
         <Button x:Name="bStartupConn" Content="Connect" HorizontalAlignment="Left" Height="65" Margin="323,91,0,0" VerticalAlignment="Top" Width="170" Click="bStartupConn_Click"/>
         <Button x:Name="bStartupExit" Content="Exit" HorizontalAlignment="Left" Height="65" Margin="323,201,0,0" VerticalAlignment="Top" Width="170" Click="bStartupExit_Click"/>
         <ListBox x:Name="lbStartupServers" HorizontalAlignment="Left" Height="175" Margin="21,91,0,0" VerticalAlignment="Top" Width="143" SelectionChanged="lbStartupServers_SelectionChanged"/>
         <TextBox x:Name="tbStartupUsername" HorizontalAlignment="Left" Height="20" Margin="179,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"></TextBox>
-        <TextBox x:Name="tbStartupPassword" HorizontalAlignment="Left" Height="20" Margin="179,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113"></TextBox>
+        <PasswordBox x:Name="tbStartupPassword" ToolTip="Password" PasswordChar="*" HorizontalAlignment="Left" Height="20" Margin="179,225,0,0" VerticalAlignment="Top" Width="113"></PasswordBox>
         <Label x:Name="lStartupUsername" Content="Username" HorizontalAlignment="Left" Margin="179,81,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lStartupPassword" Content="Server Password" HorizontalAlignment="Left" Margin="179,199,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lStartupEcho" Content="ECHO" HorizontalAlignment="Left" Height="63" Margin="45,23,0,0" VerticalAlignment="Top" Width="129" FontSize="36"/>

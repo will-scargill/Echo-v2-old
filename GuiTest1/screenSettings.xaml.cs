@@ -102,27 +102,40 @@ namespace ECHO
             string newIP = this.tbSettingsIP.Text;
             string newPort = this.tbSettingsPort.Text;
             bool check = true;
-            List<List<string>> data = DBM.SQLGetTableData("servers");
-            foreach (List<string> row in data)
+            if (newName == "" || newIP == "" || newPort == "")
             {
-                if (row[1] == newName)
-                {
-                    check = false;
-                }
-            }
-            if (check == true)
-            {
-                List<string> newServer = new List<string> { newName, newIP, newPort };
-
-                DBM.SQLWriteToTable(newServer, "servers");
-
-                populateServers();
+                MessageBox.Show("Error - Please enter details before creating new server");
             }
             else
             {
-                MessageBox.Show("Error - Cannot use duplicate server name");
+                List<List<string>> data = DBM.SQLGetTableData("servers");
+                foreach (List<string> row in data)
+                {
+                    if (row[1] == newName)
+                    {
+                        check = false;
+                    }
+                }
+                if (check == true)
+                {
+                    try
+                    {
+                        List<string> newServer = new List<string> { newName, newIP, newPort };
+
+                        DBM.SQLWriteToTable(newServer, "servers");
+
+                        populateServers();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error - Inputted information was in an invalid format");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error - Cannot use duplicate server name");
+                }
             }
-            
 
             
         }
@@ -137,6 +150,9 @@ namespace ECHO
                 string servName = lbi.Content.ToString();
                 List<List<string>> data = DBM.SQLRaw("DELETE FROM servers WHERE name='" + servName + "'", "servers");
                 populateServers();
+                tbSettingsIP.Text = "";
+                tbSettingsName.Text = "";
+                tbSettingsPort.Text = "";
             }
             
             
