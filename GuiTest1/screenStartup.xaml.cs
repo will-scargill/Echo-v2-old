@@ -25,6 +25,7 @@ namespace ECHO
     {
         public static screenStartup pageStartup;
         private static List<string> config;
+        public static string SecretKey;
 
         public screenStartup()
         {
@@ -33,6 +34,8 @@ namespace ECHO
             pageStartup = this;
             DBM.SQLInitialise();
             populateServers();
+
+            MainWindow.main.ResizeMode = ResizeMode.NoResize;
 
             config = CFM.ReadSettings();
 
@@ -137,6 +140,51 @@ namespace ECHO
                 
                 if (connected == true)
                 {
+                    KeyGenerator.SecretKey = KeyGenerator.GetUniqueKey(16);
+                    MessageBox.Show(KeyGenerator.SecretKey);
+
+
+                    Dictionary<string, object> message = new Dictionary<string, object>
+                    {
+                        { "username", "" },
+                        { "channel", "" },
+                        { "content",  ""},
+                        { "messagetype", "keyRequest" }
+                    };
+
+                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    NM.SendMessage(jsonMessage);
+
+                    byte[] bytes = new byte[20480];
+
+                    int bytesRec = NM.sender.Receive(bytes); // Receieve "publicKey"
+                    string jsonData = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+                    message = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
+
+                    string publicKey = (string)message["content"];
+                    string ciphertext = EMRSA.Encrypt(KeyGenerator.SecretKey, publicKey);
+
+                    message = new Dictionary<string, object>
+                                {
+                                    { "username", "" },
+                                    { "channel", "" },
+                                    { "content",  ciphertext},
+                                    { "messagetype", "secretKey" }
+                                };
+
+                    jsonMessage = JsonConvert.SerializeObject(message);
+                    NM.SendMessage(jsonMessage);
+
+                    bytes = new byte[20480];
+
+                    bytesRec = NM.sender.Receive(bytes); // Recieve "confirmed"
+                    jsonData = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+
+                    message = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
+
+
+
                     NM.RecieveMessage();
 
                     string username = tbStartupUsername.Text;
@@ -144,16 +192,18 @@ namespace ECHO
 
                     List<string> connRequest = new List<string> { username, this.tbStartupPassword.Password };
 
-                    Dictionary<string, object> message = new Dictionary<string, object>();
+                    message = new Dictionary<string, object>
+                    {
+                        { "username", "" },
+                        { "channel", "" },
+                        { "content", connRequest },
+                        { "messagetype", "connRequest" }
+                    };
 
-                    message.Add("username", "");
-                    message.Add("channel", "");
-                    message.Add("content", connRequest);
-                    message.Add("messagetype", "connRequest");
-
-                    string jsonMessage = JsonConvert.SerializeObject(message);
-
+                    jsonMessage = JsonConvert.SerializeObject(message);
                     NM.SendMessage(jsonMessage);
+
+
                 }
             }
         }

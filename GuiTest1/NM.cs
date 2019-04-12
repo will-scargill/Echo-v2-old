@@ -15,9 +15,9 @@ using System.Windows.Media;
 
 namespace ECHO
 {
-    class NM
+    class NM // Network manager
     {
-        private static Socket sender;
+        public static Socket sender;
         public static bool recieving;
         private static List<Message> historyArchive = new List<Message>();
         private static bool moreMessages;

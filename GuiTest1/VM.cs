@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace ECHO
 {
-    class VM
+    class VM // Visual Manager
     {
         private static Panel mainContainer;
 

@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace ECHO
 {
-    class DBM
+    class DBM // Database Manager
     {
         private static SQLiteConnection dbConn;
         private static SQLiteCommand command;

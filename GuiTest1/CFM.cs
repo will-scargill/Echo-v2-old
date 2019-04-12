@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace ECHO
 {
-    class CFM
+    class CFM // Config file manager
     {
         public static List<string> ReadSettings()
         {

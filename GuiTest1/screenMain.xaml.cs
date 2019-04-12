@@ -41,6 +41,7 @@ namespace ECHO
             //MainWindow.main.frame.Height = 570;
             //MainWindow.main.frame.Width = 992;
 
+            MainWindow.main.ResizeMode = ResizeMode.CanResize;
 
             List<string> channels = JsonConvert.DeserializeObject<List<string>>((NM.serverInfo["channels"]).ToString());
 

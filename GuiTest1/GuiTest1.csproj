@@ -126,6 +126,7 @@
     </ApplicationDefinition>
     <Compile Include="CFM.cs" />
     <Compile Include="DBM.cs" />
+    <Compile Include="EM.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="NM.cs" />
     <Compile Include="screenMain.xaml.cs">
@@ -193,9 +194,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\settingsCog.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\settingsCog.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
