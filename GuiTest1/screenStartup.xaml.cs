@@ -141,7 +141,8 @@ namespace ECHO
                 if (connected == true)
                 {
                     KeyGenerator.SecretKey = KeyGenerator.GetUniqueKey(16);
-                    MessageBox.Show(KeyGenerator.SecretKey);
+
+                    Debug.WriteLine(KeyGenerator.SecretKey);
 
 
                     Dictionary<string, object> message = new Dictionary<string, object>
@@ -200,7 +201,10 @@ namespace ECHO
                         { "messagetype", "connRequest" }
                     };
 
-                    jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
                     NM.SendMessage(jsonMessage);
 
 

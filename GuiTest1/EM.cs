@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows;
 
 namespace ECHO
 {
@@ -42,6 +43,7 @@ namespace ECHO
             RSACryptoServiceProvider pubKeyCSP = PemKeyUtils.GetRSAProviderFromPem(publickey);
 
             byte[] dataToEncrypt = Encoding.UTF8.GetBytes(plaintext);
+
             using (pubKeyCSP)
             {
                 byte[] encrypted = pubKeyCSP.Encrypt(dataToEncrypt, true);
@@ -580,7 +582,80 @@ namespace ECHO
     }
 
     class EMAES
-    {
+    {   
+        public static List<object> Encrypt(string plaintext)
+        {
+            List<object> dataToReturn = new List<object> { };
+            using (AesManaged aes = new AesManaged())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(KeyGenerator.SecretKey);
 
+                aes.GenerateIV();
+
+                byte[] ciphertext = EncryptInternal(plaintext, aes.Key, aes.IV);
+
+                dataToReturn.Add(ciphertext);
+                dataToReturn.Add(aes.IV);
+            }
+            return dataToReturn;
+        }
+
+        public static string Decrypt(string ciphertext, string key, string IV)
+        {
+            byte[] ciphertextB = System.Convert.FromBase64String(ciphertext);
+            byte[] IVB = System.Convert.FromBase64String(IV);
+            string dataToReturn = DecryptInternal(ciphertextB, Encoding.UTF8.GetBytes(KeyGenerator.SecretKey), IVB);
+            return dataToReturn;
+        }
+
+        private static byte[] EncryptInternal(string plainText, byte[] Key, byte[] IV)
+        {
+            byte[] encrypted;
+            // Create a new AesManaged.    
+            using (AesManaged aes = new AesManaged())
+            {
+                // Create encryptor    
+                ICryptoTransform encryptor = aes.CreateEncryptor(Key, IV);
+                // Create MemoryStream    
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Create crypto stream using the CryptoStream class. This class is the key to encryption    
+                    // and encrypts and decrypts data from any given stream. In this case, we will pass a memory stream    
+                    // to encrypt    
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+                    {
+                        // Create StreamWriter and write data to a stream    
+                        using (StreamWriter sw = new StreamWriter(cs))
+                            sw.Write(plainText);
+                        encrypted = ms.ToArray();
+                    }
+                }
+            }
+            // Return encrypted data    
+            return encrypted;
+        }
+
+        private static string DecryptInternal(byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            string plaintext = null;
+            // Create AesManaged    
+            using (AesManaged aes = new AesManaged())
+            {
+                // Create a decryptor    
+                ICryptoTransform decryptor = aes.CreateDecryptor(Key, IV);
+                // Create the streams used for decryption.    
+                using (MemoryStream ms = new MemoryStream(cipherText))
+                {
+                    // Create crypto stream    
+                    using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                    {
+                        // Read crypto stream    
+                        using (StreamReader reader = new StreamReader(cs))
+                            plaintext = reader.ReadToEnd();
+                    }
+                }
+            }
+            return plaintext;
+        }
     }
 }

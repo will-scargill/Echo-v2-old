@@ -70,7 +70,9 @@ namespace ECHO
                 message.Add("content", this.tbMainMessageEntry.Text);
                 message.Add("messagetype", "inboundMessage");
 
-                string jsonMessage = JsonConvert.SerializeObject(message);
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
 
 
@@ -92,7 +94,9 @@ namespace ECHO
                     message.Add("content", this.tbMainMessageEntry.Text);
                     message.Add("messagetype", "inboundMessage");
 
-                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
                     NM.SendMessage(jsonMessage);
                 }
@@ -115,7 +119,9 @@ namespace ECHO
                 message.Add("content", channelName);
                 message.Add("messagetype", "changedChannel");
 
-                string jsonMessage = JsonConvert.SerializeObject(message);
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
                 NM.SendMessage(jsonMessage);
             }
@@ -153,7 +159,9 @@ namespace ECHO
                 message.Add("content", timesUpdated);
                 message.Add("messagetype", "messageReq");
 
-                string jsonMessage = JsonConvert.SerializeObject(message);
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
                 NM.SendMessage(jsonMessage);
                 
@@ -180,7 +188,9 @@ namespace ECHO
                     message.Add("content", "/whois " + target.Substring(0, target.Length - 2));
                     message.Add("messagetype", "inboundMessage");
 
-                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
 
 
@@ -194,7 +204,9 @@ namespace ECHO
                     message.Add("content", "/whois " + target);
                     message.Add("messagetype", "inboundMessage");
 
-                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
 
 
@@ -217,7 +229,9 @@ namespace ECHO
                     message.Add("content", "/kick " + target.Substring(0, target.Length - 2));
                     message.Add("messagetype", "inboundMessage");
 
-                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
 
 
@@ -231,7 +245,9 @@ namespace ECHO
                     message.Add("content", "/kick " + target);
                     message.Add("messagetype", "inboundMessage");
 
-                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
 
 
@@ -261,7 +277,7 @@ namespace ECHO
 
         private void lbMainMessages_ScrollBar_MouseUp(object sender, RoutedEventArgs e)
         {
-            if (channel != "" && stopUpdating == false)
+            if (channel != "" && stopUpdating == false && lbMainMessages.Items.Count >= 50)
             {   
 
                 Border border = (Border)VisualTreeHelper.GetChild(lbMainMessages, 0);
@@ -279,7 +295,9 @@ namespace ECHO
                     message.Add("content", timesUpdated);
                     message.Add("messagetype", "messageReq");
 
-                    string jsonMessage = JsonConvert.SerializeObject(message);
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
 
                     NM.SendMessage(jsonMessage);
                 }

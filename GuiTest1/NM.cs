@@ -1,16 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
-using Newtonsoft.Json;
+using System.Windows;
 using System.Windows.Controls;
-using System.Diagnostics;
-using System.Windows.Automation.Peers;
 using System.Windows.Media;
 
 namespace ECHO
@@ -66,7 +63,12 @@ namespace ECHO
                     int bytesRec = sender.Receive(bytes);
                     string jsonData = Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
+                    List<string> encryptedData = JsonConvert.DeserializeObject<List<string>>(jsonData);
+
+                    jsonData = EMAES.Decrypt(encryptedData[0], KeyGenerator.SecretKey, encryptedData[1]);
+
                     Dictionary<string, object> message = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
+
                     //MessageBox.Show((string)message["messagetype"]);
                     switch (message["messagetype"])
                     {
