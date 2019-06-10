@@ -64,13 +64,21 @@
                         <MenuItem Header="Copy Message" Click="Messages_Context_Copy"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
-            </ListBox>
-            
+            </ListBox>          
         </DockPanel>
 
         <Menu x:Name="menuMain" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
             <MenuItem Header="Disconnect" Click="MenuItem_Disconn_Click"/>
-            <MenuItem x:Name="viewAllUsers" Header="View all users" Click="viewAllUsers_Click"/>
+            <!--<MenuItem x:Name="viewAllUsers" Header="View all users" Click="viewAllUsers_Click">
+                <MenuItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Whois" Click="viewAllUsers_Whois"/>
+                        <MenuItem Header="Kick" Click="viewAllUsers_Kick"/>
+                        <MenuItem Header="Ban" Click="viewAllUsers_Ban"/>
+                    </ContextMenu>
+                </MenuItem.ContextMenu>
+            </MenuItem>-->
+            <!--Not currently working as intended-->
         </Menu>
     </Grid>
 </Page>

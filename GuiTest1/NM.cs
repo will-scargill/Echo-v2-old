@@ -253,14 +253,32 @@ namespace ECHO
                                         Application.Current.MainWindow.Height = 350;
                                         Application.Current.MainWindow.Width = 525;
                                         if ((string)message["content"] == "")
-                                            MessageBox.Show("Kicked - No reason given");
+                                            MessageBox.Show("You were kicked from the server. No reason given");
                                         else
-                                            MessageBox.Show("Kicked - " + message["content"]);
+                                            MessageBox.Show("You were kicked from the server. Reason: " + message["content"]);
                                         NM.DC();
                                         NM.serverInfo.Clear();
 
                                     });
 
+                                }
+                                break;
+                            case "userBanned":
+                                {
+                                    MainWindow.main.Dispatcher.Invoke(() => 
+                                    {
+                                        CFM.UpdateSetting("mainHeight", Convert.ToString(MainWindow.main.ActualHeight));
+                                        CFM.UpdateSetting("mainWidth", Convert.ToString(MainWindow.main.ActualWidth));
+                                        MainWindow.main.frame.Source = new Uri("screenStartup.xaml", UriKind.Relative);
+                                        Application.Current.MainWindow.Height = 350;
+                                        Application.Current.MainWindow.Width = 525;
+                                        if ((string)message["content"] == "")
+                                            MessageBox.Show("You were banned from the server. No reason given");
+                                        else
+                                            MessageBox.Show("You were banned from the server. Reason: " + message["content"]);
+                                        NM.DC();
+                                        NM.serverInfo.Clear();
+                                    });
                                 }
                                 break;
                             case "userList":

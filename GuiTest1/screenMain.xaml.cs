@@ -261,7 +261,39 @@ namespace ECHO
             if (lbMainChannelMembers.SelectedItem == null) { }
             else
             {
-                MessageBox.Show("Not yet implemented");
+                string target = lbMainChannelMembers.SelectedItem.ToString();
+                if (target.Substring((target.Length - 2), 2) == " \u2606")
+                {
+                    Dictionary<string, object> message = new Dictionary<string, object>();
+                    message.Add("username", username);
+                    message.Add("channel", channel);
+                    message.Add("content", "/ban " + target.Substring(0, target.Length - 2));
+                    message.Add("messagetype", "inboundMessage");
+
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
+
+
+                    NM.SendMessage(jsonMessage);
+                }
+                else
+                {
+                    Dictionary<string, object> message = new Dictionary<string, object>();
+                    message.Add("username", username);
+                    message.Add("channel", channel);
+                    message.Add("content", "/ban " + target);
+                    message.Add("messagetype", "inboundMessage");
+
+                    List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                    string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
+
+
+                    NM.SendMessage(jsonMessage);
+                }
             }
         }
 
@@ -317,13 +349,76 @@ namespace ECHO
                     { "messagetype", "userReq" }
                 };
 
-                string jsonMessage = JsonConvert.SerializeObject(message);
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
 
-                //NM.SendMessage(jsonMessage);
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
+                NM.SendMessage(jsonMessage);
             }
             else
             {
                 //MessageBox.Show("something else");
+            }
+        }
+
+        private void viewAllUsers_Whois(object sender, RoutedEventArgs e)
+        {
+            if (lbMainChannelMembers.SelectedItem == null) { }
+            else
+            {
+                string target = lbMainChannelMembers.SelectedItem.ToString();
+
+                Dictionary<string, object> message = new Dictionary<string, object>();
+                message.Add("username", username);
+                message.Add("channel", channel);
+                message.Add("content", "/whois " + target);
+                message.Add("messagetype", "inboundMessage");
+
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
+            }
+        }
+
+        private void viewAllUsers_Kick(object sender, RoutedEventArgs e)
+        {
+            if (lbMainChannelMembers.SelectedItem == null) { }
+            else
+            {
+                string target = lbMainChannelMembers.SelectedItem.ToString();
+
+                Dictionary<string, object> message = new Dictionary<string, object>();
+                message.Add("username", username);
+                message.Add("channel", channel);
+                message.Add("content", "/kick " + target);
+                message.Add("messagetype", "inboundMessage");
+
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
+            }
+        }
+
+        private void viewAllUsers_Ban(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(sender.ToString());
+            if (sender == null) { }
+            else
+            {
+                string target = lbMainChannelMembers.SelectedItem.ToString();
+
+                Dictionary<string, object> message = new Dictionary<string, object>();
+                message.Add("username", username);
+                message.Add("channel", channel);
+                message.Add("content", "/ban " + target);
+                message.Add("messagetype", "inboundMessage");
+
+                List<object> encryptedMessage = EMAES.Encrypt(JsonConvert.SerializeObject(message));
+
+                string jsonMessage = JsonConvert.SerializeObject(encryptedMessage);
+
             }
         }
     }
