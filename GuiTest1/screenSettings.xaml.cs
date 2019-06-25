@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ECHO
+namespace EMessenger
 {
     /// <summary>
     /// Interaction logic for screenSettings.xaml

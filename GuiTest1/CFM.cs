@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace ECHO
+namespace EMessenger
 {
     class CFM // Config file manager
     {

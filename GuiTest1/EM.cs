@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
 
-namespace ECHO
+namespace EMessenger
 {
 
     class KeyGenerator // https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings

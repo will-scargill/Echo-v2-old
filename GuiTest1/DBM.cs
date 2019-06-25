@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace ECHO
+namespace EMessenger
 {
     class DBM // Database Manager
     {
@@ -25,9 +25,18 @@ namespace ECHO
         {
             dbConn = new SQLiteConnection("Data Source=database.db;Version=3;"); /// Assign it to a db connnection
             dbConn.Open(); /// Open the database
-            sql = "";
+            sql = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='servers'";
             command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
             reader = command.ExecuteReader(); /// Setup reader
+            while (reader.Read())
+            {
+                if (Convert.ToInt16(reader[0]) == 0)
+                {
+                    sql = "CREATE TABLE 'servers' ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' TEXT, 'ip' TEXT, 'port' INT )";
+                    command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
+                    reader = command.ExecuteReader(); /// Setup reader
+                }
+            }
         }
 
         public static List<List<string>> SQLGetTableData(string tableName)

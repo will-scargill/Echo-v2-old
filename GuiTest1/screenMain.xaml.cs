@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 
-namespace ECHO
+namespace EMessenger
 {
     /// <summary>
     /// Interaction logic for screenMain.xaml

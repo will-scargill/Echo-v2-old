@@ -66,11 +66,6 @@ C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\obj\Debug\ECHO
 C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\obj\Debug\ECHO.application
 C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\obj\Debug\ECHO.exe
 C:\Users\wills\Documents\Coding\C#\ECHO Version 2\echov2\GuiTest1\obj\Debug\ECHO.pdb
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\ECHO.exe.config
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\ECHO.exe.manifest
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\ECHO.application
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\ECHO.exe
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\ECHO.pdb
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EntityFramework.dll
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.dll
@@ -80,7 +75,6 @@ C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\System.Data.
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EntityFramework.xml
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Newtonsoft.Json.xml
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.pdb
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\Socket.xml
@@ -91,20 +85,25 @@ C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenMain.g
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenSettings.g.cs
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenStartup.g.cs
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\App.g.cs
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO_MarkupCompile.cache
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO_MarkupCompile.lref
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\App.baml
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\MainWindow.baml
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenMain.baml
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenSettings.baml
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\screenStartup.baml
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO.g.resources
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO.Properties.Resources.resources
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.csproj.GenerateResource.cache
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.csproj.CoreCompileInputs.cache
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO.exe.manifest
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO.application
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.csproj.CopyComplete
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO.exe
-C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\ECHO.pdb
 C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\GuiTest1.csprojAssemblyReference.cache
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger_MarkupCompile.cache
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger_MarkupCompile.lref
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EMessenger.exe.config
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EMessenger.exe.manifest
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EMessenger.application
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EMessenger.exe
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\bin\Debug\EMessenger.pdb
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger.g.resources
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger.Properties.Resources.resources
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger.exe.manifest
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger.application
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger.exe
+C:\Users\wills\Documents\Coding\C#\echov2\echov2\GuiTest1\obj\Debug\EMessenger.pdb
