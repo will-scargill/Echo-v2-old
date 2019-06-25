@@ -35,6 +35,9 @@ namespace EMessenger
                     sql = "CREATE TABLE 'servers' ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' TEXT, 'ip' TEXT, 'port' INT )";
                     command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
                     reader = command.ExecuteReader(); /// Setup reader
+                    sql = "INSERT INTO servers (name, ip, port) values ('Echo Official Server', '195.201.123.169', 16000)";
+                    command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
+                    reader = command.ExecuteReader(); /// Setup reader
                 }
             }
         }

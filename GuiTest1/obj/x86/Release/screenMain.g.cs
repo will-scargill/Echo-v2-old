@@ -124,7 +124,7 @@ namespace EMessenger {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/EMessenger;component/screenmain.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Echo Client;component/screenmain.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\screenMain.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
