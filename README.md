@@ -1,5 +1,5 @@
 # Echo Client
-
+### Version 1.0
 ## Installation 
 * Navigate to `Release`
 * Select the latest compatible version of Echo
