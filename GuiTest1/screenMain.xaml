@@ -19,8 +19,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="670*"/>
-            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="307"/>
         </Grid.ColumnDefinitions>
 
         <DockPanel Grid.Column="1" LastChildFill="True" Margin="10" Grid.Row="1">
@@ -64,7 +64,7 @@
                         <MenuItem Header="Copy Message" Click="Messages_Context_Copy"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
-            </ListBox>          
+            </ListBox>
         </DockPanel>
 
         <Menu x:Name="menuMain" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0">
